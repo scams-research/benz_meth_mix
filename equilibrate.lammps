@@ -1,0 +1,238 @@
+# PART A - ENERGY MINIMIZATION
+
+
+# 1) Initialization
+units real
+atom_style full
+bond_style     harmonic
+angle_style    harmonic
+dihedral_style opls
+improper_style cvff
+pair_style lj/cut/coul/long 12
+pair_modify mix geometric
+special_bonds lj/coul 0.0 0.0 0.5
+kspace_style pppm 1e-6
+neighbor        2.0 bin
+neigh_modify    
+
+region box block -15 15 -15 15 -15 15
+create_box 18 box bond/types 17 angle/types 25 dihedral/types 27 improper/types 8 &
+extra/bond/per/atom 4 extra/angle/per/atom 10 extra/dihedral/per/atom 20 &
+ extra/improper/per/atom 4 extra/special/per/atom 20
+
+molecule benzene mol_files/benzene.mol
+molecule methanol mol_files/methanol.mol toff 12 boff 12 aoff 18 doff 24 ioff 6
+create_atoms 0 random 1 34564 NULL mol benzene 25367 overlap 2
+create_atoms 0 random 19 34564 NULL mol methanol 25367 overlap 2
+
+
+# Benzene coeffs
+
+mass 1 12.011  
+mass 2 12.011  
+mass 3 12.011  
+mass 4 12.011  
+mass 5 12.011  
+mass 6 12.011  
+mass 7 1.008  
+mass 8 1.008  
+mass 9 1.008  
+mass 10 1.008  
+mass 11 1.008  
+mass 12 1.008  
+
+pair_coeff 1 1 0.070 3.5500000
+pair_coeff 2 2 0.070 3.5500000
+pair_coeff 3 3 0.070 3.5500000
+pair_coeff 4 4 0.070 3.5500000
+pair_coeff 5 5 0.070 3.5500000
+pair_coeff 6 6 0.070 3.5500000
+pair_coeff 7 7 0.030 2.4200000
+pair_coeff 8 8 0.030 2.4200000
+pair_coeff 9 9 0.030 2.4200000
+pair_coeff 10 10 0.030 2.4200000
+pair_coeff 11 11 0.030 2.4200000
+pair_coeff 12 12 0.030 2.4200000
+
+
+bond_coeff       1   469.0000     1.4000 
+bond_coeff       2   469.0000     1.4000 
+bond_coeff       3   469.0000     1.4000 
+bond_coeff       4   469.0000     1.4000 
+bond_coeff       5   469.0000     1.4000 
+bond_coeff       6   367.0000     1.0800 
+bond_coeff       7   367.0000     1.0800 
+bond_coeff       8   367.0000     1.0800 
+bond_coeff       9   367.0000     1.0800 
+bond_coeff      10   367.0000     1.0800 
+bond_coeff      11   367.0000     1.0800 
+bond_coeff      12   469.0000     1.4000 
+
+angle_coeff 1 63.000 120.000
+angle_coeff 2 63.000 120.000
+angle_coeff 3 63.000 120.000
+angle_coeff 4 63.000 120.000
+angle_coeff 5 35.000 120.000
+angle_coeff 6 35.000 120.000
+angle_coeff 7 35.000 120.000
+angle_coeff 8 35.000 120.000
+angle_coeff 9 35.000 120.000
+angle_coeff 10 35.000 120.000
+angle_coeff 11 35.000 120.000
+angle_coeff 12 35.000 120.000
+angle_coeff 13 35.000 120.000
+angle_coeff 14 35.000 120.000
+angle_coeff 15 63.000 120.000
+angle_coeff 16 35.000 120.000
+angle_coeff 17 63.000 120.000
+angle_coeff 18 35.000 120.000
+
+dihedral_coeff 1 0.000 7.250 0.000 0.000
+dihedral_coeff 2 0.000 7.250 0.000 0.000
+dihedral_coeff 3 0.000 7.250 0.000 0.000
+dihedral_coeff 4 0.000 7.250 0.000 0.000
+dihedral_coeff 5 0.000 7.250 0.000 0.000
+dihedral_coeff 6 0.000 7.250 0.000 0.000
+dihedral_coeff 7 0.000 7.250 0.000 0.000
+dihedral_coeff 8 0.000 7.250 0.000 0.000
+dihedral_coeff 9 0.000 7.250 0.000 0.000
+dihedral_coeff 10 0.000 7.250 0.000 0.000
+dihedral_coeff 11 0.000 7.250 0.000 0.000
+dihedral_coeff 12 0.000 7.250 0.000 0.000
+dihedral_coeff 13 0.000 7.250 0.000 0.000
+dihedral_coeff 14 0.000 7.250 0.000 0.000
+dihedral_coeff 15 0.000 7.250 0.000 0.000
+dihedral_coeff 16 0.000 7.250 0.000 0.000
+dihedral_coeff 17 0.000 7.250 0.000 0.000
+dihedral_coeff 18 0.000 7.250 0.000 0.000
+dihedral_coeff 19 0.000 7.250 0.000 0.000
+dihedral_coeff 20 0.000 7.250 0.000 0.000
+dihedral_coeff 21 0.000 7.250 0.000 0.000
+dihedral_coeff 22 0.000 7.250 0.000 0.000
+dihedral_coeff 23 0.000 7.250 0.000 0.000
+dihedral_coeff 24 0.000 7.250 0.000 0.000
+
+improper_coeff 1 2.500 -1 2
+improper_coeff 2 2.500 -1 2
+improper_coeff 3 2.500 -1 2
+improper_coeff 4 2.500 -1 2
+improper_coeff 5 2.500 -1 2
+improper_coeff 6 2.500 -1 2
+
+
+# Methanol coeffs
+mass 13 12.011
+mass 14 15.999
+mass 15 1.008
+mass 16 1.008
+mass 17 1.008
+mass 18 1.008
+
+pair_coeff 13 13 0.066 3.5000000
+pair_coeff 14 14 0.170 3.1200000
+pair_coeff 15 15 0.030 2.5000000
+pair_coeff 16 16 0.030 2.5000000
+pair_coeff 17 17 0.030 2.5000000
+pair_coeff 18 18 0.000 0.0000000
+
+bond_coeff 13 320.0000 1.4100
+bond_coeff 14 340.0000 1.0900
+bond_coeff 15 340.0000 1.0900
+bond_coeff 16 340.0000 1.0900
+bond_coeff 17 553.0000 0.9450
+
+angle_coeff 19 35.000 109.500
+angle_coeff 20 35.000 109.500
+angle_coeff 21 35.000 109.500
+angle_coeff 22 55.000 108.500
+angle_coeff 23 33.000 107.800
+angle_coeff 24 33.000 107.800
+angle_coeff 25 33.000 107.800
+
+dihedral_coeff 25 0.000 0.000 0.352 0.000
+dihedral_coeff 26 0.000 0.000 0.352 0.000
+dihedral_coeff 27 0.000 0.000 0.352 0.000
+
+improper_coeff 7 0.000 -1 2
+improper_coeff 8 0.000 -1 2
+
+
+variable DT equal 1
+variable TDAMP equal 100*${DT}
+variable PDAMP equal 1000*${DT}
+
+minimize 0.0 0.0 10000 100000
+timestep ${DT}
+fix recenter all recenter INIT INIT INIT
+
+thermo_style custom step cpu cpuremain temp press etotal density xlo xhi ylo yhi zlo zhi
+thermo 1000
+
+write_data equil_traj/initial.data
+dump equil all atom 500 equil_traj/equil.atom
+fix 1 all nvt temp 10 10 ${TDAMP}
+run 20000
+
+# heat 
+unfix 1
+fix 2 all npt temp 10 330 ${TDAMP} iso 1 1 ${PDAMP}
+run 100000
+
+# cool 
+unfix 2 
+fix 3 all npt temp 330 290 ${TDAMP} iso 1 1 ${PDAMP}
+run 100000
+
+# NPT density run 
+undump equil 
+dump density all atom 500 equil_traj/density.atom
+write_data equil_traj/density.data
+
+unfix 3 
+fix 4 all npt temp 290 290 ${TDAMP} iso 1 1 ${PDAMP}
+run 500000
+
+
+
+
+# read_data benzene.data
+# replicate 19 1 1 bbox
+
+# # 3) Simulation settings
+# timestep 1
+
+# velocity all create 10 42
+
+# fix recenter all recenter INIT INIT INIT
+
+# thermo_style custom step cpu cpuremain temp press etotal density xlo xhi ylo yhi zlo zhi
+# thermo 1000
+
+# dump equil all atom 500 equil.atom
+
+# fix 1 all nvt temp 10 10 $(100.0*dt)
+# run 20000
+
+# unfix 1
+
+# timestep 2
+# fix 2 all npt temp 10 290 $(100.0*dt) iso 1 1 $(1000.0*dt)
+# run 1000000
+
+
+# unfix 2 
+# fix 3 all npt temp 290 290 $(100.0*dt) iso 1 1 $(1000.0*dt)
+# run 500000
+
+
+# write_data 290k_1point5ns.data
+
+# # prod
+# unfix 3
+# undump equil 
+# dump atom all atom 500 290k_10ns.atom
+# fix 4 all nvt temp 290 290 $(100.0*dt)
+
+# run 10000000
+
+# write_data 290k_end.data
