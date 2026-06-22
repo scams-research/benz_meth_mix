@@ -1,6 +1,7 @@
 
 # Checklist for Joe
 
+- [ ] Github ssh key
 - [ ] Set up clifton auth
 - [ ] Install lammps locally
 - [ ] Install VSCode locally
@@ -15,6 +16,7 @@
 - Angular density of methanols benzene
 - Benzene COM to methanol H,  OH - pi bond distances
 - Rotational autocorrelation benzene
+- DFT dimers
 
 
 [Lammps docs](https://docs.lammps.org/Manual.html)
