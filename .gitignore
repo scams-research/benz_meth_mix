@@ -1,0 +1,9 @@
+*.txt
+*.atom
+*.data
+*.pkl
+__pycache__/
+*.pyc
+*.h5
+*.pdf
+lmp
