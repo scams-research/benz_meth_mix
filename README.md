@@ -184,7 +184,7 @@ python3 plotting.py
 │   │   └── utility.py
 │   ├── rdf
 │   │   ├── analysis.slurm
-│   │   ├── plottin.py
+│   │   ├── plotting.py
 │   │   ├── rdf_funcs.py
 │   │   ├── rdf.py
 │   │   └── utility.py
@@ -223,7 +223,7 @@ python3 plotting.py
 │   │   └── utility.py
 │   ├── rdf
 │   │   ├── analysis.slurm
-│   │   ├── plottin.py
+│   │   ├── plotting.py
 │   │   ├── rdf_funcs.py
 │   │   ├── rdf.py
 │   │   └── utility.py
@@ -297,7 +297,7 @@ python3 plotting.py
 │   │   └── utility.py
 │   ├── rdf
 │   │   ├── analysis.slurm
-│   │   ├── plottin.py
+│   │   ├── plotting.py
 │   │   ├── rdf_funcs.py
 │   │   ├── rdf.py
 │   │   └── utility.py
@@ -336,7 +336,7 @@ python3 plotting.py
 │   │   └── utility.py
 │   ├── rdf
 │   │   ├── analysis.slurm
-│   │   ├── plottin.py
+│   │   ├── plotting.py
 │   │   ├── rdf_funcs.py
 │   │   ├── rdf.py
 │   │   └── utility.py
