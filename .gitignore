@@ -1,4 +1,5 @@
 *.txt
+!requirments.txt
 *.atom
 *.data
 *.pkl
