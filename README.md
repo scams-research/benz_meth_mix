@@ -14,6 +14,8 @@ First install the repository form git hub using commands below.
 ```bash
 git clone git@github.com:scams-research/benz_meth_mix.git
 cd benz_meth_mix
+conda create --name md python=3.11.15
+conda activate md 
 pip install -r requirments.txt
 ```
 
