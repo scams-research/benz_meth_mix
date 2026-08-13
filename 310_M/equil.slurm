@@ -13,5 +13,5 @@ export OMP_PLACES=threads
 
 module load PrgEnv-cray
 
-LMP=/home/b35bh/harryrich11.b35bh/project/joe_lammps/lmp
+LMP= <insert/path/to/lammps/exactuable>
 srun "$LMP" -in equil.lammps -log ${SLURM_JOB_ID}.log
