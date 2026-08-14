@@ -1,0 +1,75 @@
+\documentclass{report}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{multicol}
+\usepackage{siunitx}
+\usepackage[left=2.5cm, right=2.5cm, top=3cm, bottom=3cm]{geometry}
+\title{Summer research internship project : Analysis of molecular dynamics simulation for benzene and methanol mixture}
+\author{Joe Gray}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+Molecular dynamics simulations have been previously used to interpret quasi-elastic neutron scattering (QENS) measurements of neat benzene solutions revealing that benzene's rotation is anisotropic. The rotation about its principle axis of rotation (spinning) was shown to be 4 times larger than that of the rotation about an axis orthogonal to its principle axis of rotation (Tumbling). A paper on strong structuring within methanol and Benzene mixtures, where it is shown that a weak hydrogen bond is form between the electron-rich aromatic pi-system of the benzene and the electropositive hydrogen of the OH bond in the methanol. It was hypothesis that this weak hydrogen bond hinder the tumbling motion and leave the spinning motion effectively unchanged, thus pronouncing the anisotropic nature of benzene. It was also assumed that the tumbling in the methanol mixture would be slower with respect to neat benzene.
+\paragraph{}
+Simulating condensed phases such as a methanol and benzene solution comes with many challenges but ultimately the main challenge that a MD simulation addresses is the efficiency at which phase-space can be sampled. MD simulations use classical mechanics which don't suffer the same time cost that quantum mechanical simulations would. As performing the calculation for the orbital interactions for even a single molecule can be fairly time consuming whereas if MD simulation is used the time taken to compute many molecules interactions is significantly less than this. MD simulations approximate molecular orbitals as force fields. These force fields can be used to quickly calculate the forces that act between every molecule in the simulation very quickly. The forces are then able to provide the accelerations of every molecule in the system which allows new position to be calculated, relative to the previous position. This process is then repeated to create a trajectory of the system. Due to the number of molecules able to be simulated these trajectories are good enough approximations to provide insight in to the behavior of how the rue system would be have.
+\paragraph{}
+The scope of this project is to run MD simulations for methanol and benzene solutions and analyses the trajectories to probe the structuring and dynamics. The aim of the structuring part of the investigation would be to show that the MD simulation is in agreement with the experimental work performed by Camilla Di Mino. The dynamics part is analogues to Andrew McCluskey and Harry Richardson's MD analysis of pure benzene dynamics. The purpose of this analysis is to provide sufficient evidence to justify beam-time at QENS facility.
+
+\section{Computational Methods}
+
+\subsection{Molecular dynamics simulations}
+
+\subsubsection{Benzene and methanol mixture}
+
+The molecular dynamics simulations were constructed using LAMMPs and run on a HPC cluster(Isamabard 3 Grace). The simulations were initialized with 9500 methanol and 500 benzene molecules distributed randomly within a $140\:\si{\angstrom} \times 140\:\si{\angstrom} \times 140\:\si{\angstrom}$ cubic box. OPLS-AA force fields were generated using parameters provided from LigParGen. Equilibration was perfomed first by fixing the temperature of the simulation 10 K for 20 ps using an NVT ensemble with a thermostat set to dampen every 100 fs. This was followed by increasing the temperature from 10 330 K over 1 ns using an NPT ensemble and the same thermostat parameters and a barostat set to dampen every 1 ps, to hold the pressure at 1 atm. 1 atm of pressure was maintained from this point on within the simulation. The cooling step was varied depending the target temperature. When the temperature was cooled from 330 K to 190 K it was done over 1 ns with the same paramter as the heating step (10-330 K). For the target temperature of 290 K and 310 K the cooling was performed over 500 ps. The simulation was the held at the target temperature ( either 190, 240, 290, 310 K ) for 2 ns using an NPT ensemble with the same barostat and thermostat as before.Trajectories were collected of the 2 ns runs where data was collected every 500 fs . The mean densities were found from these trajectories and the frame that was closest to the mean were found. The production simulation used an NVT ensemble held at the target temperature using the same thermostat parameters as before. The simulation was run for 100 ps with no data collected then a 2 ns trajectory was collected with samples every 500 ps, After 1 ns of this sampling a 1 ns trajectory was collected sampling every 50 ps as well as continuing the 2 ns trajectory sampling simultaneously.
+
+\subsubsection{Pure benzene}
+
+The pure Benzene simulation was also constructed using LAMMPS and run on a HPC cluster. The simulation was initialised with with 75 benzene molecules randomly distributed with in $30\:\si{\angstrom} \times 30\:\si{\angstrom} \times 30\:\si{\angstrom}$ cubic box. The simulation was equilibrated by first using an NVT ensemble held at 10 K and 1 atm for 20 ps.The thermostat and barostat were set to dampen every 100 fs and 1000 fs respectively. The pressure was held at 1 atm through out the rest of the equilibration.Then heating from 10 K to 50 K was done over 100 ps using NPT ensemble with the same thermostat and barostat. Then the simulation was replicated 3 times in each dimension. The simulation was then heated from 50 K to 330 K over 1 ns. The simulation was then cooled to 290 k over 5000 ps. The temperature was then  held at 290 K and a trajectory was collected over 2 ns with samples taken every 500 fs. The production trajectory was collected in exactly the same way as in the benzene and methanol simulation.
+
+\subsection{Data analysis Methodology}
+
+The data analysis performed on the first 6000 frames  1 ns trajectory with 50 fs samples. The anayliss was done using python primarily using the MDAnanlsysis module to read the trajectories. RDFs, ARDFs RACFs and translational diffusion constants were caluated.
+
+\subsubsection{Radial distribution functions}
+
+The RDF for the benzene methanol solution were calutated between the centre of mass (CoM) of the benzene and the oxygen, hydrogen (the hydrogen bonded to the oxygen) and the carbon (the carbon bonded to the oxygen) on the methanol. 
+
+\subsubsection{Angular-Radial distrubustion functions}
+
+The radial part of the ARDFs, of the mixture,  were calculated between the CoM of the benzene and the oxygen of the methanol. The Angular part was calculate from angle between vector in the plane of the benzene ring and a vector along the axis of OH bond. The vector along the plane of the benzene was defined by CoM to a carbon on the benzene ring. The OH bond vector was defined by going from the oxygen to the hydrogen on the methanol. 
+
+\subsubsection{Rotational autocorrelation function}
+
+The RACFs used a non-overlapping sliding window with a window size of 150 frames. The means points of these windows were founds as well as the standard error and the standard deviation. The RACF for two vectors, the first was defined as a vector perpendicular to the ring and the other was within the plane of the ring. The rotational diffusion constants for the tumbling and spinning motion of benzene were also obtained from the RACFs. This was done by using a nested sampling algorithm to fit models to RACFs. The fitting of the models also provided evidence values in which we can compare the models accuracy. the model with the highest evidence was then selected and the mean rotational diffusion constants were then obtained from there distribution from that model.
+
+The Arrhenius behavior of these diffusion constants were investigated by making a kinis Arrhenius object from the mean and variances of diffusion constants obtained from each of the temperature simulation. These constants were then used to calculate the activation energy and the pre-exponential factor using Markov chain Monte Carlo (MCMC) algorithm which was built in to the kinis module. This resulted in obtain a activation energy from the tumbling and the spinning motions.
+
+\subsubsection{Translational diffusion constants}
+
+Translation Diffusion constants were obtained using the diffusion analyses function from kinis and Arrhenius analysis was performed on them in the same manor as the rotational diffusion constanst.  
+
+\section{Results and discussion}
+\subsection{Structure}
+
+All the methanol benzene simulations show similar structuring seen in previous work this is shown in the RDFs and ARDFs for every temperatures the simulations were run at.
+
+\begin{figure}[h] % 'h' means place it approximately here
+    \centering
+    % Adjust width as needed, e.g., 0.5\textwidth for half page width
+    \includegraphics[width=0.5\textwidth]{example-image} 
+    \caption{This is a sample caption for the image.}
+    \label{fig:sample}
+\end{figure}
+
+As shown in Figure~\ref{fig:sample}, you can reference images in text.
+
+\subsection{Dynamics}
+
+\section{Conclusion}
+\subsection{Findings}
+\subsection{Future work}
+
+
+\end{document}
